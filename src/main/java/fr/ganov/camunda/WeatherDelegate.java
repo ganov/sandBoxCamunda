@@ -6,6 +6,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 /**
  *
  */
@@ -17,5 +19,7 @@ public class WeatherDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) {
         logger.info("Hi! WeatherAgent speaking.");
+        delegateExecution.setVariable("name", "jeanjean");
+        delegateExecution.setVariable("weatherOk", new Random().nextBoolean());
     }
 }
