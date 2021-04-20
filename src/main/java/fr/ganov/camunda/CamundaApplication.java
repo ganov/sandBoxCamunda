@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableProcessApplication("demoTuto")
+@EnableProcessApplication("sandBox Camunda")
 public class CamundaApplication {
     public static void main(String... args) {
         SpringApplication.run(CamundaApplication.class, args);
