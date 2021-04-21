@@ -1,5 +1,6 @@
 package fr.ganov.camunda;
 
+import fr.ganov.camunda.pojo.api.weather.Weather;
 import fr.ganov.camunda.services.LocationEnum;
 import fr.ganov.camunda.services.WeatherApiService;
 import org.apache.logging.log4j.LogManager;
@@ -24,11 +25,18 @@ public class WeatherDelegate implements JavaDelegate {
     private WeatherApiService weatherApiService;
 
     @Override
-    public void execute(DelegateExecution delegateExecution) {
+    public void execute(DelegateExecution delegateExecution) throws Exception {
         String randomLoc = LocationEnum.values()[random.nextInt(LocationEnum.values().length)].label;
         logger.info("Hi! Weather in {} is :", randomLoc);
 
-        delegateExecution.setVariable("city", "randomLoc");
-        delegateExecution.setVariable("weatherOk", weatherApiService.getWeatherIn(randomLoc));
+        Weather w = weatherApiService.getWeatherIn(randomLoc);
+        Boolean weatherOk = Boolean.FALSE;
+        if (w != null && w.getCurrent().getCondition().getCode() < 1004) {
+            weatherOk = Boolean.TRUE;
+        }
+
+        delegateExecution.setVariable("city", randomLoc);
+        delegateExecution.setVariable("weatherOk", weatherOk);
+        delegateExecution.setVariable("weatherCondition", w.getCurrent().getCondition().getText());
     }
 }

@@ -146,7 +146,11 @@
         </dependency>
 
         <!-- Add your own dependencies here, if in compile scope, they are added to the jar -->
-
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.12</version>
+        </dependency>
     </dependencies>
 
     <repositories>

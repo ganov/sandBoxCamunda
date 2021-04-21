@@ -2,7 +2,6 @@ package fr.ganov.camunda.services;
 public enum LocationEnum {
     MTL("Montreal"),
     MRS("Marseille"),
-    NYC("NewYork"),
     MXC("Mexico"),
     BZL("Brasilia"),
     SDY("Sydney"),

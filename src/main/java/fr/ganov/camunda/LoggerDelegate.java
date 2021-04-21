@@ -17,19 +17,21 @@ public class LoggerDelegate implements JavaDelegate {
     private final Logger logger = LogManager.getLogger(LoggerDelegate.class.getName());
 
     public void execute(DelegateExecution execution) {
-        StringBuilder log = new StringBuilder("\n\n WeatherOk : " + execution.getVariable("weatherOk").toString());
+        StringBuilder log = new StringBuilder(
+                "\n\n Weather condition in " + execution.getVariable("city").toString() + " : " + execution
+                        .getVariable("weatherCondition").toString());
         log.append("\n\n  ... LoggerDelegate invoked by ");
-        log.append("processDefinitionId=");
+        log.append("\n\nprocessDefinitionId=");
         log.append(execution.getProcessDefinitionId());
-        log.append(", activtyId=");
+        log.append(", \n\nactivtyId=");
         log.append(execution.getCurrentActivityId());
-        log.append(", activtyName=");
+        log.append(", \n\nactivtyName=");
         log.append(execution.getCurrentActivityName());
-        log.append(", processInstanceId=");
+        log.append(", \n\nprocessInstanceId=");
         log.append(execution.getProcessInstanceId());
-        log.append(", businessKey=");
+        log.append(", \n\nbusinessKey=");
         log.append(execution.getProcessBusinessKey());
-        log.append(", executionId=");
+        log.append(", \n\nexecutionId=");
         log.append(execution.getId());
         log.append(" \n\n");
         logger.info(log);
