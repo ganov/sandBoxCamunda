@@ -16,12 +16,22 @@ public class LoggerDelegate implements JavaDelegate {
 
     private final Logger logger = LogManager.getLogger(LoggerDelegate.class.getName());
 
-    public void execute(DelegateExecution execution) throws Exception {
-        logger.info("\n\n  ... LoggerDelegate invoked by " + "processDefinitionId=" + execution.getProcessDefinitionId()
-                + ", activtyId=" + execution.getCurrentActivityId() + ", activtyName='" + execution
-                .getCurrentActivityName() + "'" + ", processInstanceId=" + execution.getProcessInstanceId()
-                + ", businessKey=" + execution.getProcessBusinessKey() + ", executionId=" + execution.getId()
-                + " \n\n");
+    public void execute(DelegateExecution execution) {
+        StringBuilder log = new StringBuilder("\n\n WeatherOk : " + execution.getVariable("weatherOk").toString());
+        log.append("\n\n  ... LoggerDelegate invoked by ");
+        log.append("processDefinitionId=");
+        log.append(execution.getProcessDefinitionId());
+        log.append(", activtyId=");
+        log.append(execution.getCurrentActivityId());
+        log.append(", activtyName=");
+        log.append(execution.getCurrentActivityName());
+        log.append(", processInstanceId=");
+        log.append(execution.getProcessInstanceId());
+        log.append(", businessKey=");
+        log.append(execution.getProcessBusinessKey());
+        log.append(", executionId=");
+        log.append(execution.getId());
+        log.append(" \n\n");
+        logger.info(log);
     }
-
 }

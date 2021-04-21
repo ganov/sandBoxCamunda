@@ -1,12 +1,15 @@
 package fr.ganov.camunda;
 
+import fr.ganov.camunda.services.LocationEnum;
+import fr.ganov.camunda.services.WeatherApiService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  *
@@ -15,11 +18,17 @@ import java.util.Random;
 public class WeatherDelegate implements JavaDelegate {
 
     private final Logger logger = LogManager.getLogger(WeatherDelegate.class.getName());
+    private static final SecureRandom random = new SecureRandom();
+
+    @Autowired
+    private WeatherApiService weatherApiService;
 
     @Override
     public void execute(DelegateExecution delegateExecution) {
-        logger.info("Hi! WeatherAgent speaking.");
-        delegateExecution.setVariable("name", "jeanjean");
-        delegateExecution.setVariable("weatherOk", new Random().nextBoolean());
+        String randomLoc = LocationEnum.values()[random.nextInt(LocationEnum.values().length)].label;
+        logger.info("Hi! Weather in {} is :", randomLoc);
+
+        delegateExecution.setVariable("city", "randomLoc");
+        delegateExecution.setVariable("weatherOk", weatherApiService.getWeatherIn(randomLoc));
     }
 }
