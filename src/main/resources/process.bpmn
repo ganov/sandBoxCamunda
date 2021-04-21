@@ -11,7 +11,7 @@
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEvent" targetRef="Weather" />
     <bpmn:sequenceFlow id="Flow_0yedu7w" sourceRef="Weather" targetRef="Gateway_1imdldt" />
     <bpmn:sequenceFlow id="Flow_1etmdri" name="Yes" sourceRef="Gateway_1imdldt" targetRef="Activity_1s4oe8r">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{weatherOk}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${weatherObj.current.condition.code &lt; 1004}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Weather" name="Check Weather" camunda:class="fr.ganov.camunda.WeatherDelegate">
       <bpmn:incoming>SequenceFlow1</bpmn:incoming>
@@ -23,7 +23,7 @@
       <bpmn:outgoing>Flow_1omm61d</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1omm61d" name="No" sourceRef="Gateway_1imdldt" targetRef="Activity_1fch9e1">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not weatherOk}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${weatherObj.current.condition.code &gt; 1004}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_18uz67k" sourceRef="Activity_1fch9e1" targetRef="Event_103g8fm" />
     <bpmn:sequenceFlow id="Flow_0e01alp" sourceRef="Activity_1s4oe8r" targetRef="EndEvent" />

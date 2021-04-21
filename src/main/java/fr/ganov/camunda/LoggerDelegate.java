@@ -1,5 +1,6 @@
 package fr.ganov.camunda;
 
+import fr.ganov.camunda.pojo.api.weather.Weather;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -17,9 +18,10 @@ public class LoggerDelegate implements JavaDelegate {
     private final Logger logger = LogManager.getLogger(LoggerDelegate.class.getName());
 
     public void execute(DelegateExecution execution) {
+        Weather w = (Weather) execution.getVariable("weatherObj");
         StringBuilder log = new StringBuilder(
-                "\n\n Weather condition in " + execution.getVariable("city").toString() + " : " + execution
-                        .getVariable("weatherCondition").toString());
+                "\n\n Weather condition in " + w.getLocation().getName() + " : " + w.getCurrent().getCondition()
+                        .getText());
         log.append("\n\n  ... LoggerDelegate invoked by ");
         log.append("\n\nprocessDefinitionId=");
         log.append(execution.getProcessDefinitionId());

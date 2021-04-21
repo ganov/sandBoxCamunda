@@ -30,13 +30,8 @@ public class WeatherDelegate implements JavaDelegate {
         logger.info("Hi! Weather in {} is :", randomLoc);
 
         Weather w = weatherApiService.getWeatherIn(randomLoc);
-        Boolean weatherOk = Boolean.FALSE;
-        if (w != null && w.getCurrent().getCondition().getCode() < 1004) {
-            weatherOk = Boolean.TRUE;
-        }
 
         delegateExecution.setVariable("city", randomLoc);
-        delegateExecution.setVariable("weatherOk", weatherOk);
-        delegateExecution.setVariable("weatherCondition", w.getCurrent().getCondition().getText());
+        delegateExecution.setVariable("weatherObj", w);
     }
 }
